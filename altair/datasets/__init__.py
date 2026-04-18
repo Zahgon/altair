@@ -154,18 +154,7 @@ def url(
     .. _Path.suffix:
         https://docs.python.org/3/library/pathlib.html#pathlib.PurePath.suffix
     """
-    from altair.datasets._exceptions import AltairDatasetsError
-
-    try:
-        from altair.datasets._loader import load
-
-        url = load.url(name, suffix)
-    except AltairDatasetsError:
-        from altair.datasets._cache import csv_cache
-
-        url = csv_cache.url(name)
-
-    return url
+    pass
 
 
 if not TYPE_CHECKING:

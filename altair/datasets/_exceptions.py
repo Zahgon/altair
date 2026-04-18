@@ -12,19 +12,7 @@ if TYPE_CHECKING:
 class AltairDatasetsError(Exception):
     @classmethod
     def from_url(cls, meta: Metadata, /) -> AltairDatasetsError:
-        if meta["suffix"] == ".parquet":
-            msg = (
-                f"{_failed_url(meta)}"
-                f"{meta['suffix']!r} datasets require `vegafusion`.\n"
-                "See upstream issue for details: https://github.com/vega/vega/issues/3961"
-            )
-        else:
-            msg = (
-                f"{cls.from_url.__qualname__}() called for "
-                f"unimplemented extension: {meta['suffix']}\n\n{meta!r}"
-            )
-            raise NotImplementedError(msg)
-        return cls(msg)
+        pass
 
     @classmethod
     def from_tabular(cls, meta: Metadata, backend_name: str, /) -> AltairDatasetsError:
@@ -50,8 +38,7 @@ class AltairDatasetsError(Exception):
 
     @classmethod
     def from_priority(cls, priority: Sequence[_Backend], /) -> AltairDatasetsError:
-        msg = f"Found no supported backend, searched:\n{priority!r}"
-        return cls(msg)
+        pass
 
 
 def module_not_found(
@@ -72,7 +59,7 @@ def module_not_found(
 
 
 def _failed_url(meta: Metadata, /) -> str:
-    return f"Unable to load {meta['file_name']!r} via url.\n"
+    pass
 
 
 def _failed_tabular(meta: Metadata, /) -> str:

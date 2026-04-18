@@ -36,20 +36,7 @@ datum = DatumType()
 
 def _js_repr(val) -> str:
     """Return a javascript-safe string representation of val."""
-    if val is True:
-        return "true"
-    elif val is False:
-        return "false"
-    elif val is None:
-        return "null"
-    elif isinstance(val, OperatorMixin):
-        return val._to_expr()
-    elif isinstance(val, dt.date):
-        return _from_date_datetime(val)
-    elif _is_numpy_generic(val):
-        return repr(val.item())
-    else:
-        return repr(val)
+    pass
 
 
 def _from_date_datetime(obj: dt.date | dt.datetime, /) -> str:
@@ -86,7 +73,7 @@ def _is_numpy_generic(obj: Any) -> bool:
 
     This function can be used without importing numpy when it is not available.
     """
-    return (np := sys.modules.get("numpy")) is not None and isinstance(obj, np.generic)
+    pass
 
 
 # Designed to work with Expression and VariableParameter

@@ -48,20 +48,11 @@ class MetaIs(Set[tuple[str, Any]]):
         return cls(frozenset(meta.items()))
 
     def to_metadata(self) -> Metadata:
-        if TYPE_CHECKING:
-
-            def collect(**kwds: Unpack[Metadata]) -> Metadata:
-                return kwds
-
-            return collect(**dict(self))
-        return dict(self)
+        pass
 
     def to_expr(self) -> nw.Expr:
         """Convert constraint into a narwhals expression."""
-        if not self:
-            msg = f"Unable to convert an empty set to an expression:\n\n{self!r}"
-            raise TypeError(msg)
-        return nw.all_horizontal(nw.col(name) == val for name, val in self)
+        pass
 
     def isdisjoint(self, other: Iterable[Any]) -> bool:
         return super().isdisjoint(other)

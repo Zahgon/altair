@@ -100,14 +100,11 @@ Examples
 
     @property
     def _loader(self) -> Loader[t.Any, t.Any]:
-        if hasattr(self, "_prev_loader"):
-            return self._prev_loader
-        self._prev_loader = Loader.from_backend(self._backend)
-        return self._prev_loader
+        pass
 
     @_loader.setter
     def _loader(self, value: Loader[t.Any, t.Any]) -> None:
-        self._prev_loader = value
+        pass
 
     @property
     def url(self) -> str:
@@ -126,7 +123,7 @@ Examples
         >>> print(cars_url)
         https://cdn.jsdelivr.net/npm/vega-datasets@v3.2.1/data/cars.json
         """
-        return self._loader.url(self._name)
+        pass
 
     def load(self, *, engine: _Backend | None = None, **kwds: t.Any) -> t.Any:
         """
@@ -305,9 +302,7 @@ class DataObject:
         >>> cars_df = data.cars()  # Uses polars
         >>> movies_df = data.movies()  # Uses polars
         """
-        self._backend = engine
-        # Clear cached accessors so they use the new default
-        self._accessors.clear()
+        pass
 
     def list_datasets(self) -> list[Dataset | LiteralString]:
         """
@@ -327,7 +322,7 @@ class DataObject:
         >>> print(datasets[:5])  # First 5 datasets
         ['airports', 'annual_precip', 'anscombe', 'barley', 'birdstrikes']
         """
-        return self._get_dataset_names()
+        pass
 
     def get_default_engine(self) -> _Backend:
         """
@@ -348,7 +343,7 @@ class DataObject:
         >>> print(data.get_default_engine())
         polars
         """
-        return self._backend
+        pass
 
     def __repr__(self) -> str:
         dataset_count = len(self._get_dataset_names())

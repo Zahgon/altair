@@ -101,19 +101,7 @@ class RendererRegistry(PluginRegistry[RendererType, MimeBundleType]):
         **kwargs :
             Additional options are passed directly to embed options.
         """
-        options: dict[str, bool | str | float | dict[str, bool] | None] = {
-            "defaultStyle": defaultStyle,
-            "renderer": renderer,
-            "width": width,
-            "height": height,
-            "padding": padding,
-            "scaleFactor": scaleFactor,
-            "actions": actions,
-            "formatLocale": format_locale,
-            "timeFormatLocale": time_format_locale,
-        }
-        kwargs.update({key: val for key, val in options.items() if val is not None})
-        return self.enable(None, embed_options=kwargs)
+        pass
 
 
 # ==============================================================================
@@ -159,12 +147,7 @@ class Displayable:
         self, include: Any = None, exclude: Any = None
     ) -> MimeBundleType:
         """Return a MIME bundle for display in Jupyter frontends."""
-        if self.renderers is not None:
-            renderer_func = self.renderers.get()
-            assert renderer_func is not None
-            return renderer_func(self.spec)
-        else:
-            return {}
+        pass
 
 
 def default_renderer_base(
@@ -220,7 +203,7 @@ class HTMLRenderer:
 
     @property
     def output_div(self) -> str:
-        return self._output_div.format(uuid.uuid4().hex)
+        pass
 
     def __call__(self, spec: dict[str, Any], **metadata) -> dict[str, str]:
         kwargs = self.kwargs.copy()

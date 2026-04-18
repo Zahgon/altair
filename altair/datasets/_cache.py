@@ -121,9 +121,7 @@ class CompressedCache(Protocol[_KT, _VT]):
 
     @property
     def mapping(self) -> MutableMapping[_KT, _VT]:
-        if not self._mapping:
-            self._mapping.update(self.read())
-        return self._mapping
+        pass
 
 
 class CsvCache(CompressedCache["_Dataset", "Metadata"]):
@@ -179,11 +177,7 @@ class CsvCache(CompressedCache["_Dataset", "Metadata"]):
     @property
     def rotated(self) -> Mapping[str, Sequence[Any]]:
         """Columnar view."""
-        if not self._rotated:
-            for record in self.mapping.values():
-                for k, v in record.items():
-                    self._rotated[k].append(v)
-        return self._rotated
+        pass
 
     def __getitem__(self, key: _Dataset, /) -> Metadata:
         if meta := self.get(key, None):
@@ -192,10 +186,7 @@ class CsvCache(CompressedCache["_Dataset", "Metadata"]):
         raise TypeError(msg)
 
     def url(self, name: _Dataset, /) -> str:
-        meta = self[name]
-        if meta["suffix"] == ".parquet" and not find_spec("vegafusion"):
-            raise AltairDatasetsError.from_url(meta)
-        return meta["url"]
+        pass
 
     def __repr__(self) -> str:
         return f"<{type(self).__name__}: {'COLLECTED' if self._mapping else 'READY'}>"
@@ -255,40 +246,14 @@ class SchemaCache(CompressedCache["_Dataset", "_FlSchema"]):
             return list(match)
 
     def is_active(self) -> bool:
-        return self._implementation in {
-            nw.Implementation.PANDAS,
-            nw.Implementation.PYARROW,
-            nw.Implementation.MODIN,
-            nw.Implementation.PYARROW,
-        }
+        pass
 
     def schema(self, name: _Dataset, /) -> nw.Schema:
         it = ((col, _FIELD_TO_DTYPE[tp_str]()) for col, tp_str in self[name].items())
         return nw.Schema(it)
 
     def schema_kwds(self, meta: Metadata, /) -> dict[str, Any]:
-        name: Any = meta["dataset_name"]
-        if self.is_active() and (self[name]):
-            suffix = meta["suffix"]
-            if self._implementation.is_pandas_like():
-                if cols := self.by_dtype(name, nw.Date, nw.Datetime):
-                    if suffix == ".json":
-                        return {"convert_dates": cols}
-                    elif suffix in {".csv", ".tsv"}:
-                        return {"parse_dates": cols}
-            else:
-                schema = self.schema(name).to_arrow()
-                if suffix in {".csv", ".tsv"}:
-                    from pyarrow.csv import ConvertOptions
-
-                    # For pyarrow CSV reading, use the schema as intended
-                    # This will fail for non-ISO date formats, but that's the correct behavior
-                    # Users can handle this by using a different backend or converting dates manually
-                    return {"convert_options": ConvertOptions(column_types=schema)}
-                elif suffix == ".parquet":
-                    return {"schema": schema}
-
-        return {}
+        pass
 
 
 class _SupportsScanMetadata(Protocol):
@@ -312,21 +277,7 @@ class DatasetCache:
 
     def clear(self) -> None:
         """Delete all previously cached datasets."""
-        self._ensure_active()
-        if self.is_empty():
-            return None
-        ser = (
-            self._rd._scan_metadata()
-            .select("sha", "suffix")
-            .unique("sha")
-            .select(nw.concat_str("sha", "suffix").alias("sha_suffix"))
-            .collect()
-            .get_column("sha_suffix")
-        )
-        names = set[str](ser.to_list())
-        for fp in self:
-            if fp.name in names:
-                fp.unlink()
+        pass
 
     def download_all(self) -> None:
         """
@@ -334,36 +285,13 @@ class DatasetCache:
 
         Requires **30-50MB** of disk-space.
         """
-        stems = tuple(fp.stem for fp in self)
-        predicates = (~(nw.col("sha").is_in(stems)),) if stems else ()
-        frame = (
-            self._rd._scan_metadata(*predicates, is_image=False)
-            .select("sha", "suffix", "url")
-            .unique("sha")
-            .collect()
-        )
-        if frame.is_empty():
-            print("Already downloaded all datasets")
-            return None
-        print(f"Downloading {len(frame)} missing datasets...")
-        for meta in _iter_metadata(frame):
-            self._download_one(meta["url"], self.path_meta(meta))
-        print("Finished downloads")
-        return None
+        pass
 
     def _maybe_download(self, meta: Metadata, /) -> Path:
-        fp = self.path_meta(meta)
-        return (
-            fp
-            if (fp.exists() and fp.stat().st_size)
-            else self._download_one(meta["url"], fp)
-        )
+        pass
 
     def _download_one(self, url: str, fp: Path, /) -> Path:
-        with self._rd._opener.open(url) as f:
-            fp.touch()
-            fp.write_bytes(f.read())
-        return fp
+        pass
 
     @property
     def path(self) -> Path:
@@ -395,20 +323,14 @@ class DatasetCache:
         .. _XDG_CACHE_HOME:
             https://specifications.freedesktop.org/basedir-spec/latest/#variables
         """
-        self._ensure_active()
-        fp = Path(usr) if (usr := os.environ.get(self._ENV_VAR)) else self._XDG_CACHE
-        fp.mkdir(parents=True, exist_ok=True)
-        return fp
+        pass
 
     @path.setter
     def path(self, source: StrPath | None, /) -> None:
-        if source is not None:
-            os.environ[self._ENV_VAR] = str(Path(source).resolve())
-        else:
-            os.environ[self._ENV_VAR] = ""
+        pass
 
     def path_meta(self, meta: Metadata, /) -> Path:
-        return self.path / (meta["sha"] + meta["suffix"])
+        pass
 
     def __iter__(self) -> Iterator[Path]:
         yield from self.path.iterdir()
@@ -421,7 +343,7 @@ class DatasetCache:
             return f"{name}<{self.path.as_posix()!r}>"
 
     def is_active(self) -> bool:
-        return not self.is_not_active()
+        pass
 
     def is_not_active(self) -> bool:
         return os.environ.get(self._ENV_VAR) == ""
@@ -431,17 +353,7 @@ class DatasetCache:
         return next(iter(self), None) is None
 
     def _ensure_active(self) -> None:
-        if self.is_not_active():
-            msg = (
-                f"Cache is unset.\n"
-                f"To enable dataset caching, set the environment variable:\n"
-                f"    {self._ENV_VAR!r}\n\n"
-                f"You can set this for the current session via:\n"
-                f"    from pathlib import Path\n"
-                f"    from altair.datasets import load\n\n"
-                f"    load.cache.path = Path.home() / '.altair_cache'"
-            )
-            raise ValueError(msg)
+        pass
 
 
 csv_cache: CsvCache

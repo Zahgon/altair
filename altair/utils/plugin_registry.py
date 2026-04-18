@@ -33,11 +33,7 @@ def _is_type(tp: type[T], /) -> Callable[[object], TypeIs[type[T]]]:
 
     Added for compatibility with original `PluginRegistry` default.
     """
-
-    def func(obj: object, /) -> TypeIs[type[T]]:
-        return isinstance(obj, tp)
-
-    return func
+    pass
 
 
 class NoSuchEntryPoint(Exception):
@@ -182,46 +178,14 @@ class PluginRegistry(Generic[PluginT, R]):
 
     def _get_state(self) -> dict[str, Any]:
         """Return a dictionary representing the current state of the registry."""
-        return {
-            "_active": self._active,
-            "_active_name": self._active_name,
-            "_plugins": self._plugins.copy(),
-            "_options": self._options.copy(),
-            "_global_settings": self._global_settings.copy(),
-        }
+        pass
 
     def _set_state(self, state: dict[str, Any]) -> None:
         """Reset the state of the registry."""
-        assert set(state.keys()) == {
-            "_active",
-            "_active_name",
-            "_plugins",
-            "_options",
-            "_global_settings",
-        }
-        for key, val in state.items():
-            setattr(self, key, val)
+        pass
 
     def _enable(self, name: str, **options) -> None:
-        if name not in self._plugins:
-            try:
-                (ep,) = (
-                    ep
-                    for ep in importlib_metadata_get(self.entry_point_group)
-                    if ep.name == name
-                )
-            except ValueError as err:
-                if name in self.entrypoint_err_messages:
-                    raise ValueError(self.entrypoint_err_messages[name]) from err
-                else:
-                    raise NoSuchEntryPoint(self.entry_point_group, name) from err
-            value = cast("PluginT", ep.load())
-            self.register(name, value)
-        self._active_name = name
-        self._active = self._plugins[name]
-        for key in set(options.keys()) & set(self._global_settings.keys()):
-            self._global_settings[key] = options.pop(key)
-        self._options = options
+        pass
 
     def enable(
         self, name: str | None = None, **options: Any
@@ -252,12 +216,12 @@ class PluginRegistry(Generic[PluginT, R]):
     @property
     def active(self) -> str:
         """Return the name of the currently active plugin."""
-        return self._active_name
+        pass
 
     @property
     def options(self) -> dict[str, Any]:
         """Return the current options dictionary."""
-        return self._options
+        pass
 
     def get(self) -> partial[R] | Plugin[R] | None:
         """Return the currently active plugin."""
@@ -280,12 +244,4 @@ class PluginRegistry(Generic[PluginT, R]):
 
 
 def importlib_metadata_get(group):
-    ep = entry_points()
-    # 'select' was introduced in Python 3.10 and 'get' got deprecated
-    # We don't check for Python version here as by checking with hasattr we
-    # also get compatibility with the importlib_metadata package which had a different
-    # deprecation cycle for 'get'
-    if hasattr(ep, "select"):
-        return ep.select(group=group)  # pyright: ignore
-    else:
-        return ep.get(group, [])
+    pass

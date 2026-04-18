@@ -30,47 +30,47 @@ class _ExprMeta(type):
     @property
     def NaN(cls) -> Expression:
         """Not a number (same as JavaScript literal NaN)."""
-        return ConstExpression("NaN")
+        pass
 
     @property
     def LN10(cls) -> Expression:
         """The natural log of 10 (alias to Math.LN10)."""
-        return ConstExpression("LN10")
+        pass
 
     @property
     def E(cls) -> Expression:
         """The transcendental number e (alias to Math.E)."""
-        return ConstExpression("E")
+        pass
 
     @property
     def LOG10E(cls) -> Expression:
         """The base 10 logarithm e (alias to Math.LOG10E)."""
-        return ConstExpression("LOG10E")
+        pass
 
     @property
     def LOG2E(cls) -> Expression:
         """The base 2 logarithm of e (alias to Math.LOG2E)."""
-        return ConstExpression("LOG2E")
+        pass
 
     @property
     def SQRT1_2(cls) -> Expression:
         """The square root of 0.5 (alias to Math.SQRT1_2)."""
-        return ConstExpression("SQRT1_2")
+        pass
 
     @property
     def LN2(cls) -> Expression:
         """The natural log of 2 (alias to Math.LN2)."""
-        return ConstExpression("LN2")
+        pass
 
     @property
     def SQRT2(cls) -> Expression:
         """The square root of 2 (alias to Math.SQRT1_2)."""
-        return ConstExpression("SQRT2")
+        pass
 
     @property
     def PI(cls) -> Expression:
         """The transcendental number pi (alias to Math.PI)."""
-        return ConstExpression("PI")
+        pass
 
 
 class expr(_ExprRef, metaclass=_ExprMeta):
@@ -245,12 +245,12 @@ class expr(_ExprRef, metaclass=_ExprMeta):
     @classmethod
     def isArray(cls, value: IntoExpression, /) -> Expression:
         """Returns true if ``value`` is an array, false otherwise."""
-        return FunctionExpression("isArray", (value,))
+        pass
 
     @classmethod
     def isBoolean(cls, value: IntoExpression, /) -> Expression:
         """Returns true if ``value`` is a boolean (``true`` or ``false``), false otherwise."""
-        return FunctionExpression("isBoolean", (value,))
+        pass
 
     @classmethod
     def isDate(cls, value: IntoExpression, /) -> Expression:
@@ -260,7 +260,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         This method will return false for timestamp numbers or date-formatted strings; it recognizes
         Date objects only.
         """
-        return FunctionExpression("isDate", (value,))
+        pass
 
     @classmethod
     def isDefined(cls, value: IntoExpression, /) -> Expression:
@@ -269,7 +269,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
 
         This method will return true for ``null`` and ``NaN`` values.
         """
-        return FunctionExpression("isDefined", (value,))
+        pass
 
     @classmethod
     def isNumber(cls, value: IntoExpression, /) -> Expression:
@@ -278,27 +278,27 @@ class expr(_ExprRef, metaclass=_ExprMeta):
 
         ``NaN`` and ``Infinity`` are considered numbers.
         """
-        return FunctionExpression("isNumber", (value,))
+        pass
 
     @classmethod
     def isObject(cls, value: IntoExpression, /) -> Expression:
         """Returns true if ``value`` is an object (including arrays and Dates), false otherwise."""
-        return FunctionExpression("isObject", (value,))
+        pass
 
     @classmethod
     def isRegExp(cls, value: IntoExpression, /) -> Expression:
         """Returns true if ``value`` is a RegExp (regular expression) object, false otherwise."""
-        return FunctionExpression("isRegExp", (value,))
+        pass
 
     @classmethod
     def isString(cls, value: IntoExpression, /) -> Expression:
         """Returns true if ``value`` is a string, false otherwise."""
-        return FunctionExpression("isString", (value,))
+        pass
 
     @classmethod
     def isValid(cls, value: IntoExpression, /) -> Expression:
         """Returns true if ``value`` is not ``null``, ``undefined``, or ``NaN``, false otherwise."""
-        return FunctionExpression("isValid", (value,))
+        pass
 
     @classmethod
     def toBoolean(cls, value: IntoExpression, /) -> Expression:
@@ -307,7 +307,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
 
         Null values and empty strings are mapped to ``null``.
         """
-        return FunctionExpression("toBoolean", (value,))
+        pass
 
     @classmethod
     def toDate(cls, value: IntoExpression, /) -> Expression:
@@ -318,7 +318,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         provided, it is used to perform date parsing, otherwise ``Date.parse`` is used. Be aware
         that ``Date.parse`` has different implementations across browsers!
         """
-        return FunctionExpression("toDate", (value,))
+        pass
 
     @classmethod
     def toNumber(cls, value: IntoExpression, /) -> Expression:
@@ -327,7 +327,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
 
         Null values and empty strings are mapped to ``null``.
         """
-        return FunctionExpression("toNumber", (value,))
+        pass
 
     @classmethod
     def toString(cls, value: IntoExpression, /) -> Expression:
@@ -336,7 +336,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
 
         Null values and empty strings are mapped to ``null``.
         """
-        return FunctionExpression("toString", (value,))
+        pass
 
     @classmethod
     def if_(
@@ -364,7 +364,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Number.isNaN:
             https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNan
         """
-        return FunctionExpression("isNaN", (value,))
+        pass
 
     @classmethod
     def isFinite(cls, value: IntoExpression, /) -> Expression:
@@ -376,7 +376,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Number.isFinite:
             https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isFinite
         """
-        return FunctionExpression("isFinite", (value,))
+        pass
 
     @classmethod
     def abs(cls, value: IntoExpression, /) -> Expression:
@@ -388,7 +388,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Math.abs:
             https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/abs
         """
-        return FunctionExpression("abs", (value,))
+        pass
 
     @classmethod
     def acos(cls, value: IntoExpression, /) -> Expression:
@@ -400,7 +400,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Math.acos:
             https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/acos
         """
-        return FunctionExpression("acos", (value,))
+        pass
 
     @classmethod
     def asin(cls, value: IntoExpression, /) -> Expression:
@@ -412,7 +412,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Math.asin:
             https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/asin
         """
-        return FunctionExpression("asin", (value,))
+        pass
 
     @classmethod
     def atan(cls, value: IntoExpression, /) -> Expression:
@@ -424,7 +424,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Math.atan:
             https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan
         """
-        return FunctionExpression("atan", (value,))
+        pass
 
     @classmethod
     def atan2(cls, dy: IntoExpression, dx: IntoExpression, /) -> Expression:
@@ -436,7 +436,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Math.atan2:
             https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2
         """
-        return FunctionExpression("atan2", (dy, dx))
+        pass
 
     @classmethod
     def ceil(cls, value: IntoExpression, /) -> Expression:
@@ -455,7 +455,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         cls, value: IntoExpression, min: IntoExpression, max: IntoExpression, /
     ) -> Expression:
         """Restricts ``value`` to be between the specified ``min`` and ``max``."""
-        return FunctionExpression("clamp", (value, min, max))
+        pass
 
     @classmethod
     def cos(cls, value: IntoExpression, /) -> Expression:
@@ -479,7 +479,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Math.exp:
             https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/exp
         """
-        return FunctionExpression("exp", (exponent,))
+        pass
 
     @classmethod
     def floor(cls, value: IntoExpression, /) -> Expression:
@@ -491,7 +491,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Math.floor:
             https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor
         """
-        return FunctionExpression("floor", (value,))
+        pass
 
     @classmethod
     def hypot(cls, value: IntoExpression, /) -> Expression:
@@ -503,7 +503,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Math.hypot:
             https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/hypot
         """
-        return FunctionExpression("hypot", (value,))
+        pass
 
     @classmethod
     def log(cls, value: IntoExpression, /) -> Expression:
@@ -515,7 +515,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Math.log:
             https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/log
         """
-        return FunctionExpression("log", (value,))
+        pass
 
     @classmethod
     def max(
@@ -529,7 +529,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Math.max:
             https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max
         """
-        return FunctionExpression("max", (value1, value2, *args))
+        pass
 
     @classmethod
     def min(
@@ -543,7 +543,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Math.min:
             https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min
         """
-        return FunctionExpression("min", (value1, value2, *args))
+        pass
 
     @classmethod
     def pow(cls, value: IntoExpression, exponent: IntoExpression, /) -> Expression:
@@ -555,7 +555,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Math.pow:
             https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/pow
         """
-        return FunctionExpression("pow", (value, exponent))
+        pass
 
     @classmethod
     def random(cls) -> Expression:
@@ -615,7 +615,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Math.tan:
             https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/tan
         """
-        return FunctionExpression("tan", (value,))
+        pass
 
     @classmethod
     def sampleNormal(
@@ -629,7 +629,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _normal (Gaussian) probability distribution:
             https://en.wikipedia.org/wiki/Normal_distribution
         """
-        return FunctionExpression("sampleNormal", (mean, stdev))
+        pass
 
     @classmethod
     def cumulativeNormal(
@@ -647,7 +647,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _cumulative distribution function:
             https://en.wikipedia.org/wiki/Cumulative_distribution_function
         """
-        return FunctionExpression("cumulativeNormal", (value, mean, stdev))
+        pass
 
     @classmethod
     def densityNormal(
@@ -665,7 +665,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _probability density function:
             https://en.wikipedia.org/wiki/Probability_density_function
         """
-        return FunctionExpression("densityNormal", (value, mean, stdev))
+        pass
 
     @classmethod
     def quantileNormal(
@@ -683,7 +683,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _cumulative distribution function:
             https://en.wikipedia.org/wiki/Cumulative_distribution_function
         """
-        return FunctionExpression("quantileNormal", (probability, mean, stdev))
+        pass
 
     @classmethod
     def sampleLogNormal(
@@ -698,7 +698,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _log-normal probability distribution:
             https://en.wikipedia.org/wiki/Log-normal_distribution
         """
-        return FunctionExpression("sampleLogNormal", (mean, stdev))
+        pass
 
     @classmethod
     def cumulativeLogNormal(
@@ -717,7 +717,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _cumulative distribution function:
             https://en.wikipedia.org/wiki/Cumulative_distribution_function
         """
-        return FunctionExpression("cumulativeLogNormal", (value, mean, stdev))
+        pass
 
     @classmethod
     def densityLogNormal(
@@ -736,7 +736,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _probability density function:
             https://en.wikipedia.org/wiki/Probability_density_function
         """
-        return FunctionExpression("densityLogNormal", (value, mean, stdev))
+        pass
 
     @classmethod
     def quantileLogNormal(
@@ -755,7 +755,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _cumulative distribution function:
             https://en.wikipedia.org/wiki/Cumulative_distribution_function
         """
-        return FunctionExpression("quantileLogNormal", (probability, mean, stdev))
+        pass
 
     @classmethod
     def sampleUniform(
@@ -770,7 +770,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _continuous uniform probability distribution:
             https://en.wikipedia.org/wiki/Continuous_uniform_distribution
         """
-        return FunctionExpression("sampleUniform", (min, max))
+        pass
 
     @classmethod
     def cumulativeUniform(
@@ -789,7 +789,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _cumulative distribution function:
             https://en.wikipedia.org/wiki/Cumulative_distribution_function
         """
-        return FunctionExpression("cumulativeUniform", (value, min, max))
+        pass
 
     @classmethod
     def densityUniform(
@@ -808,7 +808,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _probability density function:
             https://en.wikipedia.org/wiki/Probability_density_function
         """
-        return FunctionExpression("densityUniform", (value, min, max))
+        pass
 
     @classmethod
     def quantileUniform(
@@ -827,7 +827,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _cumulative distribution function:
             https://en.wikipedia.org/wiki/Cumulative_distribution_function
         """
-        return FunctionExpression("quantileUniform", (probability, min, max))
+        pass
 
     @classmethod
     def now(cls) -> Expression:
@@ -863,22 +863,22 @@ class expr(_ExprRef, metaclass=_ExprMeta):
     @classmethod
     def day(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the day of the week for the given ``datetime`` value, in local time."""
-        return FunctionExpression("day", (datetime,))
+        pass
 
     @classmethod
     def dayofyear(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the one-based day of the year for the given ``datetime`` value, in local time."""
-        return FunctionExpression("dayofyear", (datetime,))
+        pass
 
     @classmethod
     def year(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the year for the given ``datetime`` value, in local time."""
-        return FunctionExpression("year", (datetime,))
+        pass
 
     @classmethod
     def quarter(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the quarter of the year (0-3) for the given ``datetime`` value, in local time."""
-        return FunctionExpression("quarter", (datetime,))
+        pass
 
     @classmethod
     def month(cls, datetime: IntoExpression, /) -> Expression:
@@ -894,27 +894,27 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         considered to be in week 0, the first Sunday of the year is the start of week 1, the second
         Sunday week 2, *etc.*.
         """
-        return FunctionExpression("week", (date,))
+        pass
 
     @classmethod
     def hours(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the hours component for the given ``datetime`` value, in local time."""
-        return FunctionExpression("hours", (datetime,))
+        pass
 
     @classmethod
     def minutes(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the minutes component for the given ``datetime`` value, in local time."""
-        return FunctionExpression("minutes", (datetime,))
+        pass
 
     @classmethod
     def seconds(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the seconds component for the given ``datetime`` value, in local time."""
-        return FunctionExpression("seconds", (datetime,))
+        pass
 
     @classmethod
     def milliseconds(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the milliseconds component for the given ``datetime`` value, in local time."""
-        return FunctionExpression("milliseconds", (datetime,))
+        pass
 
     @classmethod
     def time(cls, datetime: IntoExpression, /) -> Expression:
@@ -924,7 +924,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
     @classmethod
     def timezoneoffset(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the timezone offset from the local timezone to UTC for the given ``datetime`` value."""
-        return FunctionExpression("timezoneoffset", (datetime,))
+        pass
 
     @classmethod
     def timeOffset(
@@ -939,7 +939,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _*unit*:
             https://vega.github.io/vega/docs/api/time/#time-units
         """
-        return FunctionExpression("timeOffset", (unit, date, step))
+        pass
 
     @classmethod
     def timeSequence(
@@ -959,7 +959,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _*unit*:
             https://vega.github.io/vega/docs/api/time/#time-units
         """
-        return FunctionExpression("timeSequence", (unit, start, stop, step))
+        pass
 
     @classmethod
     def utc(
@@ -978,37 +978,37 @@ class expr(_ExprRef, metaclass=_ExprMeta):
 
         The ``month`` is 0-based, such that ``1`` represents February.
         """
-        return FunctionExpression("utc", (year, month, day, hour, min, sec, millisec))
+        pass
 
     @classmethod
     def utcdate(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the day of the month for the given ``datetime`` value, in UTC time."""
-        return FunctionExpression("utcdate", (datetime,))
+        pass
 
     @classmethod
     def utcday(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the day of the week for the given ``datetime`` value, in UTC time."""
-        return FunctionExpression("utcday", (datetime,))
+        pass
 
     @classmethod
     def utcdayofyear(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the one-based day of the year for the given ``datetime`` value, in UTC time."""
-        return FunctionExpression("utcdayofyear", (datetime,))
+        pass
 
     @classmethod
     def utcyear(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the year for the given ``datetime`` value, in UTC time."""
-        return FunctionExpression("utcyear", (datetime,))
+        pass
 
     @classmethod
     def utcquarter(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the quarter of the year (0-3) for the given ``datetime`` value, in UTC time."""
-        return FunctionExpression("utcquarter", (datetime,))
+        pass
 
     @classmethod
     def utcmonth(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the (zero-based) month for the given ``datetime`` value, in UTC time."""
-        return FunctionExpression("utcmonth", (datetime,))
+        pass
 
     @classmethod
     def utcweek(cls, date: IntoExpression, /) -> Expression:
@@ -1019,27 +1019,27 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         considered to be in week 0, the first Sunday of the year is the start of week 1, the second
         Sunday week 2, *etc.*.
         """
-        return FunctionExpression("utcweek", (date,))
+        pass
 
     @classmethod
     def utchours(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the hours component for the given ``datetime`` value, in UTC time."""
-        return FunctionExpression("utchours", (datetime,))
+        pass
 
     @classmethod
     def utcminutes(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the minutes component for the given ``datetime`` value, in UTC time."""
-        return FunctionExpression("utcminutes", (datetime,))
+        pass
 
     @classmethod
     def utcseconds(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the seconds component for the given ``datetime`` value, in UTC time."""
-        return FunctionExpression("utcseconds", (datetime,))
+        pass
 
     @classmethod
     def utcmilliseconds(cls, datetime: IntoExpression, /) -> Expression:
         """Returns the milliseconds component for the given ``datetime`` value, in UTC time."""
-        return FunctionExpression("utcmilliseconds", (datetime,))
+        pass
 
     @classmethod
     def utcOffset(
@@ -1054,7 +1054,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _*unit*:
             https://vega.github.io/vega/docs/api/time/#time-units
         """
-        return FunctionExpression("utcOffset", (unit, date, step))
+        pass
 
     @classmethod
     def utcSequence(
@@ -1074,12 +1074,12 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _*unit*:
             https://vega.github.io/vega/docs/api/time/#time-units
         """
-        return FunctionExpression("utcSequence", (unit, start, stop, step))
+        pass
 
     @classmethod
     def extent(cls, array: IntoExpression, /) -> Expression:
         """Returns a new *[min, max]* array with the minimum and maximum values of the input array, ignoring ``null``, ``undefined``, and ``NaN`` values."""
-        return FunctionExpression("extent", (array,))
+        pass
 
     @classmethod
     def clampRange(
@@ -1093,17 +1093,17 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         one endpoint touches the boundary of the *[min, max]* range. If the span exceeds *(max -
         min)*, the range *[min, max]* is returned.
         """
-        return FunctionExpression("clampRange", (range, min, max))
+        pass
 
     @classmethod
     def indexof(cls, array: IntoExpression, value: IntoExpression, /) -> Expression:
         """Returns the first index of ``value`` in the input ``array``."""
-        return FunctionExpression("indexof", (array, value))
+        pass
 
     @classmethod
     def inrange(cls, value: IntoExpression, range: IntoExpression, /) -> Expression:
         """Tests whether ``value`` lies within (or is equal to either) the first and last values of the ``range`` array."""
-        return FunctionExpression("inrange", (value, range))
+        pass
 
     @classmethod
     def join(
@@ -1115,12 +1115,12 @@ class expr(_ExprRef, metaclass=_ExprMeta):
     @classmethod
     def lastindexof(cls, array: IntoExpression, value: IntoExpression, /) -> Expression:
         """Returns the last index of ``value`` in the input ``array``."""
-        return FunctionExpression("lastindexof", (array, value))
+        pass
 
     @classmethod
     def length(cls, array: IntoExpression, /) -> Expression:
         """Returns the length of the input ``array``."""
-        return FunctionExpression("length", (array,))
+        pass
 
     @classmethod
     def lerp(cls, array: IntoExpression, fraction: IntoExpression, /) -> Expression:
@@ -1129,7 +1129,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
 
         For example, ``alt.expr.lerp([0, 50], 0.5)`` returns 25.
         """
-        return FunctionExpression("lerp", (array, fraction))
+        pass
 
     @classmethod
     def peek(cls, array: IntoExpression, /) -> Expression:
@@ -1139,7 +1139,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         Similar to the built-in ``Array.pop`` method, except that it does not remove the last
         element. This method is a convenient shorthand for ``array[array.length - 1]``.
         """
-        return FunctionExpression("peek", (array,))
+        pass
 
     @classmethod
     def pluck(cls, array: IntoExpression, field: IntoExpression, /) -> Expression:
@@ -1148,7 +1148,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
 
         The input ``field`` string may include nested properties (e.g., ``foo.bar.bz``).
         """
-        return FunctionExpression("pluck", (array, field))
+        pass
 
     @classmethod
     def reverse(cls, array: IntoExpression, /) -> Expression:
@@ -1183,7 +1183,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         If the ``end`` argument is negative, it is treated as an offset from the end of the array
         (*alt.expr.length(array) + end*).
         """
-        return FunctionExpression("slice", (array, start, end))
+        pass
 
     @classmethod
     def sort(cls, array: IntoExpression, /) -> Expression:
@@ -1198,7 +1198,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
     @classmethod
     def span(cls, array: IntoExpression, /) -> Expression:
         """Returns the span of ``array``: the difference between the last and first elements, or *array[array.length-1] - array[0]*."""
-        return FunctionExpression("span", (array,))
+        pass
 
     @classmethod
     def lower(cls, string: IntoExpression, /) -> Expression:
@@ -1221,7 +1221,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         the end of a string. An optional ``align`` parameter specifies if padding should be added to
         the ``'left'`` (beginning), ``'center'``, or ``'right'`` (end) of the input string.
         """
-        return FunctionExpression("pad", (string, length, character, align))
+        pass
 
     @classmethod
     def parseFloat(cls, string: IntoExpression, /) -> Expression:
@@ -1230,7 +1230,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
 
         Same as JavaScript's ``parseFloat``.
         """
-        return FunctionExpression("parseFloat", (string,))
+        pass
 
     @classmethod
     def parseInt(cls, string: IntoExpression, /) -> Expression:
@@ -1239,7 +1239,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
 
         Same as JavaScript's ``parseInt``.
         """
-        return FunctionExpression("parseInt", (string,))
+        pass
 
     @classmethod
     def replace(
@@ -1274,7 +1274,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
     @classmethod
     def trim(cls, string: IntoExpression, /) -> Expression:
         """Returns a trimmed string with preceding and trailing whitespace removed."""
-        return FunctionExpression("trim", (string,))
+        pass
 
     @classmethod
     def truncate(
@@ -1294,7 +1294,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         string to use to indicate truncated content; by default the ellipsis character ``…``
         (``\u2026``) is used.
         """
-        return FunctionExpression("truncate", (string, length, align, ellipsis))
+        pass
 
     @classmethod
     def upper(cls, string: IntoExpression, /) -> Expression:
@@ -1315,7 +1315,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Window.alt.expr.btoa():
             https://developer.mozilla.org/en-US/docs/Web/API/Window/btoa
         """
-        return FunctionExpression("btoa", (string,))
+        pass
 
     @classmethod
     def atob(cls, string: IntoExpression, /) -> Expression:
@@ -1331,7 +1331,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _Window.alt.expr.atob():
             https://developer.mozilla.org/en-US/docs/Web/API/Window/atob
         """
-        return FunctionExpression("atob", (string,))
+        pass
 
     @classmethod
     def merge(
@@ -1353,7 +1353,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
 
         For example: ``alt.expr.dayFormat(0) -> "Sunday"``.
         """
-        return FunctionExpression("dayFormat", (day,))
+        pass
 
     @classmethod
     def dayAbbrevFormat(cls, day: IntoExpression, /) -> Expression:
@@ -1362,7 +1362,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
 
         For example: ``alt.expr.dayAbbrevFormat(0) -> "Sun"``.
         """
-        return FunctionExpression("dayAbbrevFormat", (day,))
+        pass
 
     @classmethod
     def format(cls, value: IntoExpression, specifier: IntoExpression, /) -> Expression:
@@ -1375,7 +1375,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _d3-format specifier:
             https://github.com/d3/d3-format/
         """
-        return FunctionExpression("format", (value, specifier))
+        pass
 
     @classmethod
     def monthFormat(cls, month: IntoExpression, /) -> Expression:
@@ -1384,7 +1384,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
 
         For example: ``alt.expr.monthFormat(0) -> "January"``.
         """
-        return FunctionExpression("monthFormat", (month,))
+        pass
 
     @classmethod
     def monthAbbrevFormat(cls, month: IntoExpression, /) -> Expression:
@@ -1393,7 +1393,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
 
         For example: ``alt.expr.monthAbbrevFormat(0) -> "Jan"``.
         """
-        return FunctionExpression("monthAbbrevFormat", (month,))
+        pass
 
     @classmethod
     def timeUnitSpecifier(
@@ -1418,7 +1418,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _utcFormat:
             https://vega.github.io/vega/docs/expressions/#utcFormat
         """
-        return FunctionExpression("timeUnitSpecifier", (units, specifiers))
+        pass
 
     @classmethod
     def timeFormat(
@@ -1436,7 +1436,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _TimeMultiFormat object:
             https://vega.github.io/vega/docs/types/#TimeMultiFormat
         """
-        return FunctionExpression("timeFormat", (value, specifier))
+        pass
 
     @classmethod
     def timeParse(
@@ -1451,7 +1451,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _d3-time-format specifier:
             https://github.com/d3/d3-time-format/
         """
-        return FunctionExpression("timeParse", (string, specifier))
+        pass
 
     @classmethod
     def utcFormat(
@@ -1471,7 +1471,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _TimeMultiFormat object:
             https://vega.github.io/vega/docs/types/#TimeMultiFormat
         """
-        return FunctionExpression("utcFormat", (value, specifier))
+        pass
 
     @classmethod
     def utcParse(
@@ -1488,7 +1488,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _d3-time-format specifier:
             https://github.com/d3/d3-time-format/
         """
-        return FunctionExpression("utcParse", (value, specifier))
+        pass
 
     @classmethod
     def regexp(
@@ -1530,7 +1530,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _d3-color's rgb function:
             https://github.com/d3/d3-color#rgb
         """
-        return FunctionExpression("rgb", args)
+        pass
 
     @classmethod
     def hsl(cls, *args: Any) -> Expression:
@@ -1547,7 +1547,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _d3-color's hsl function:
             https://github.com/d3/d3-color#hsl
         """
-        return FunctionExpression("hsl", args)
+        pass
 
     @classmethod
     def lab(cls, *args: Any) -> Expression:
@@ -1564,7 +1564,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _d3-color's lab function:
             https://github.com/d3/d3-color#lab
         """
-        return FunctionExpression("lab", args)
+        pass
 
     @classmethod
     def hcl(cls, *args: Any) -> Expression:
@@ -1581,7 +1581,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _d3-color's hcl function:
             https://github.com/d3/d3-color#hcl
         """
-        return FunctionExpression("hcl", args)
+        pass
 
     @classmethod
     def luminance(cls, specifier: IntoExpression, /) -> Expression:
@@ -1595,7 +1595,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _W3C Web Content Accessibility Guidelines:
             https://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef
         """
-        return FunctionExpression("luminance", (specifier,))
+        pass
 
     @classmethod
     def contrast(
@@ -1609,12 +1609,12 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _W3C Web Content Accessibility Guidelines:
             https://www.w3.org/TR/2008/REC-WCAG20-20081211/#contrast-ratiodef
         """
-        return FunctionExpression("contrast", (specifier1, specifier2))
+        pass
 
     @classmethod
     def item(cls) -> Expression:
         """Returns the current scenegraph item that is the target of the event."""
-        return FunctionExpression("item", ())
+        pass
 
     @classmethod
     def group(cls, name: IntoExpression = None, /) -> Expression:
@@ -1635,7 +1635,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         scenegraph ``item`` (or string group name) is provided, the coordinate space of the group
         item is used.
         """
-        return FunctionExpression("xy", (item,))
+        pass
 
     @classmethod
     def x(cls, item: IntoExpression = None, /) -> Expression:
@@ -1646,7 +1646,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         scenegraph ``item`` (or string group name) is provided, the coordinate space of the group
         item is used.
         """
-        return FunctionExpression("x", (item,))
+        pass
 
     @classmethod
     def y(cls, item: IntoExpression = None, /) -> Expression:
@@ -1657,22 +1657,22 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         scenegraph ``item`` (or string group name) is provided, the coordinate space of the group
         item is used.
         """
-        return FunctionExpression("y", (item,))
+        pass
 
     @classmethod
     def pinchDistance(cls, event: IntoExpression, /) -> Expression:
         """Returns the pixel distance between the first two touch points of a multi-touch event."""
-        return FunctionExpression("pinchDistance", (event,))
+        pass
 
     @classmethod
     def pinchAngle(cls, event: IntoExpression, /) -> Expression:
         """Returns the angle of the line connecting the first two touch points of a multi-touch event."""
-        return FunctionExpression("pinchAngle", (event,))
+        pass
 
     @classmethod
     def inScope(cls, item: IntoExpression, /) -> Expression:
         """Returns true if the given scenegraph ``item`` is a descendant of the group mark in which the event handler was defined, false otherwise."""
-        return FunctionExpression("inScope", (item,))
+        pass
 
     @classmethod
     def data(cls, name: IntoExpression, /) -> Expression:
@@ -1692,7 +1692,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
 
         For example: ``alt.expr.indata('table', 'category', value)``.
         """
-        return FunctionExpression("indata", (name, field, value))
+        pass
 
     @classmethod
     def scale(
@@ -1724,7 +1724,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         The optional ``group`` argument takes a scenegraph group mark item to indicate the specific
         scope in which to look up the scale or projection.
         """
-        return FunctionExpression("invert", (name, value, group))
+        pass
 
     @classmethod
     def copy(cls, name: IntoExpression, group: IntoExpression = None, /) -> Expression:  # type: ignore[override]
@@ -1746,7 +1746,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         The optional ``group`` argument takes a scenegraph group mark item to indicate the specific
         scope in which to look up the scale.
         """
-        return FunctionExpression("domain", (name, group))
+        pass
 
     @classmethod
     def range(cls, name: IntoExpression, group: IntoExpression = None, /) -> Expression:
@@ -1756,7 +1756,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         The optional ``group`` argument takes a scenegraph group mark item to indicate the specific
         scope in which to look up the scale.
         """
-        return FunctionExpression("range", (name, group))
+        pass
 
     @classmethod
     def bandwidth(
@@ -1768,7 +1768,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         The optional ``group`` argument takes a scenegraph group mark item to indicate the specific
         scope in which to look up the scale.
         """
-        return FunctionExpression("bandwidth", (name, group))
+        pass
 
     @classmethod
     def bandspace(
@@ -1784,7 +1784,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         While normally calculated within the scale itself, this function can be helpful for
         determining the size of a chart's layout.
         """
-        return FunctionExpression("bandspace", (count, paddingInner, paddingOuter))
+        pass
 
     @classmethod
     def gradient(
@@ -1807,7 +1807,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _continuous color scheme:
             https://vega.github.io/vega/docs/schemes
         """
-        return FunctionExpression("gradient", (scale, p0, p1, count))
+        pass
 
     @classmethod
     def panLinear(cls, domain: IntoExpression, delta: IntoExpression, /) -> Expression:
@@ -1817,7 +1817,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         The ``delta`` value represents fractional units of the scale range; for example, ``0.5``
         indicates panning the scale domain to the right by half the scale range.
         """
-        return FunctionExpression("panLinear", (domain, delta))
+        pass
 
     @classmethod
     def panLog(cls, domain: IntoExpression, delta: IntoExpression, /) -> Expression:
@@ -1827,7 +1827,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         The ``delta`` value represents fractional units of the scale range; for example, ``0.5``
         indicates panning the scale domain to the right by half the scale range.
         """
-        return FunctionExpression("panLog", (domain, delta))
+        pass
 
     @classmethod
     def panPow(
@@ -1839,7 +1839,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         The ``delta`` value represents fractional units of the scale range; for example, ``0.5``
         indicates panning the scale domain to the right by half the scale range.
         """
-        return FunctionExpression("panPow", (domain, delta, exponent))
+        pass
 
     @classmethod
     def panSymlog(
@@ -1851,7 +1851,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         The ``delta`` value represents fractional units of the scale range; for example, ``0.5``
         indicates panning the scale domain to the right by half the scale range.
         """
-        return FunctionExpression("panSymlog", (domain, delta, constant))
+        pass
 
     @classmethod
     def zoomLinear(
@@ -1867,7 +1867,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         The ``anchor`` value represents the zoom position in terms of fractional units of the scale
         range; for example, ``0.5`` indicates a zoom centered on the mid-point of the scale range.
         """
-        return FunctionExpression("zoomLinear", (domain, anchor, scaleFactor))
+        pass
 
     @classmethod
     def zoomLog(
@@ -1883,7 +1883,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         The ``anchor`` value represents the zoom position in terms of fractional units of the scale
         range; for example, ``0.5`` indicates a zoom centered on the mid-point of the scale range.
         """
-        return FunctionExpression("zoomLog", (domain, anchor, scaleFactor))
+        pass
 
     @classmethod
     def zoomPow(
@@ -1900,7 +1900,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         The ``anchor`` value represents the zoom position in terms of fractional units of the scale
         range; for example, ``0.5`` indicates a zoom centered on the mid-point of the scale range.
         """
-        return FunctionExpression("zoomPow", (domain, anchor, scaleFactor, exponent))
+        pass
 
     @classmethod
     def zoomSymlog(
@@ -1917,7 +1917,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         The ``anchor`` value represents the zoom position in terms of fractional units of the scale
         range; for example, ``0.5`` indicates a zoom centered on the mid-point of the scale range.
         """
-        return FunctionExpression("zoomSymlog", (domain, anchor, scaleFactor, constant))
+        pass
 
     @classmethod
     def geoArea(
@@ -1940,7 +1940,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _path.area:
             https://github.com/d3/d3-geo#path_area
         """
-        return FunctionExpression("geoArea", (projection, feature, group))
+        pass
 
     @classmethod
     def geoBounds(
@@ -1966,7 +1966,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _path.bounds:
             https://github.com/d3/d3-geo#path_bounds
         """
-        return FunctionExpression("geoBounds", (projection, feature, group))
+        pass
 
     @classmethod
     def geoCentroid(
@@ -1989,7 +1989,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _path.centroid:
             https://github.com/d3/d3-geo#path_centroid
         """
-        return FunctionExpression("geoCentroid", (projection, feature, group))
+        pass
 
     @classmethod
     def geoScale(
@@ -2001,7 +2001,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         The optional ``group`` argument takes a scenegraph group mark item to indicate the specific
         scope in which to look up the projection.
         """
-        return FunctionExpression("geoScale", (projection, group))
+        pass
 
     @classmethod
     def treePath(
@@ -2013,12 +2013,12 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         The path starts at the ``source`` node, ascends to the least common ancestor of the
         ``source`` node and the ``target`` node, and then descends to the ``target`` node.
         """
-        return FunctionExpression("treePath", (name, source, target))
+        pass
 
     @classmethod
     def treeAncestors(cls, name: IntoExpression, node: IntoExpression, /) -> Expression:
         """For the hierarchy data set with the given ``name``, returns the array of ancestors nodes, starting with the input ``node``, then followed by each parent up to the root."""
-        return FunctionExpression("treeAncestors", (name, node))
+        pass
 
     @classmethod
     def containerSize(cls) -> Expression:
@@ -2027,7 +2027,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
 
         If there is no container element, returns ``[undefined, undefined]``.
         """
-        return FunctionExpression("containerSize", ())
+        pass
 
     @classmethod
     def screen(cls) -> Expression:
@@ -2037,12 +2037,12 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         .. _window.screen:
             https://developer.mozilla.org/en-US/docs/Web/API/Window/screen
         """
-        return FunctionExpression("screen", ())
+        pass
 
     @classmethod
     def windowSize(cls) -> Expression:
         """Returns the current window size (``[window.innerWidth, window.innerHeight]``) or ``[undefined, undefined]`` if Vega is not running in a browser environment."""
-        return FunctionExpression("windowSize", ())
+        pass
 
     @classmethod
     def warn(
@@ -2066,7 +2066,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         For the message to appear in the console, the visualization view must have the appropriate
         logging level set.
         """
-        return FunctionExpression("info", (value1, value2, *args))
+        pass
 
     @classmethod
     def debug(
@@ -2078,7 +2078,7 @@ class expr(_ExprRef, metaclass=_ExprMeta):
         For the message to appear in the console, the visualization view must have the appropriate
         logging level set.
         """
-        return FunctionExpression("debug", (value1, value2, *args))
+        pass
 
 
 _ExprType = expr

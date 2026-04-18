@@ -378,10 +378,7 @@ def sanitize_pandas_dataframe(df: _PandasDataFrameT) -> _PandasDataFrameT:  # no
         raise ValueError(msg)
 
     def to_list_if_array(val):
-        if isinstance(val, np.ndarray):
-            return val.tolist()
-        else:
-            return val
+        pass
 
     for dtype_item in df.dtypes.items():
         # We know that the column names are strings from the isinstance check
@@ -766,8 +763,7 @@ def use_signature(tp: Callable[P, Any], /) -> _MethodSignatureCopier[P]:
     """
 
     def decorate(cb: WrapsMethod[T, R], /) -> WrappedMethod[T, P, R]:
-        _wrap_and_copy_doc(tp, cb)
-        return cb
+        pass
 
     return decorate
 
@@ -786,8 +782,7 @@ def use_signature_func(tp: Callable[P, Any], /) -> _FunctionSignatureCopier[P]:
     """
 
     def decorate(fn: Callable[..., R], /) -> Callable[P, R]:
-        _wrap_and_copy_doc(tp, fn)
-        return fn
+        pass
 
     return decorate
 

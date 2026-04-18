@@ -26,7 +26,7 @@ You must interrupt the kernel to cancel this command.
 
 class MockRequest:
     def makefile(self, *args, **kwargs):
-        return IO(b"GET /")
+        pass
 
     def sendall(self, response):
         pass
@@ -50,19 +50,7 @@ def generate_handler(html, files=None):
     class MyHandler(server.BaseHTTPRequestHandler):
         def do_GET(self):
             """Respond to a GET request."""
-            if self.path == "/":
-                self.send_response(200)
-                self.send_header("Content-type", "text/html")
-                self.end_headers()
-                self.wfile.write(html.encode())
-            elif self.path in files:
-                content_type, content = files[self.path]
-                self.send_response(200)
-                self.send_header("Content-type", content_type)
-                self.end_headers()
-                self.wfile.write(content.encode())
-            else:
-                self.send_error(404)
+            pass
 
     return MyHandler
 
@@ -139,7 +127,7 @@ def serve(
     if open_browser:
         # Use a thread to open a web browser pointing to the server
         def b():
-            return webbrowser.open(f"http://{ip}:{port}")
+            pass
 
         threading.Thread(target=b).start()
 

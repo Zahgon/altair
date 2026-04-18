@@ -260,7 +260,7 @@ class Loader(Generic[IntoDataFrameT, IntoLazyFrameT]):
             url = load.url("cars")
             alt.Chart(url).mark_point().encode(x="Horsepower:Q", y="Miles_per_Gallon:Q")
         """
-        return self._reader.url(name, suffix)
+        pass
 
     @property
     def cache(self) -> DatasetCache:
@@ -283,7 +283,7 @@ class Loader(Generic[IntoDataFrameT, IntoLazyFrameT]):
 
             self.cache.path = None
         """
-        return self._reader.cache
+        pass
 
     def __repr__(self) -> str:
         return f"{type(self).__name__}[{self._reader._name}]"

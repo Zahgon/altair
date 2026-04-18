@@ -663,9 +663,7 @@ from altair import datasets, theme, typing
 
 
 def load_ipython_extension(ipython):
-    from altair._magics import vegalite
-
-    ipython.register_magic_function(vegalite, "cell")
+    pass
 
 
 def __getattr__(name: str):

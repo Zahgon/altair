@@ -99,8 +99,4 @@ def import_pyarrow_interchange() -> ModuleType:
 
 
 def pyarrow_available() -> bool:
-    try:
-        import_pyarrow_interchange()
-        return True
-    except (ImportError, RuntimeError):
-        return False
+    pass

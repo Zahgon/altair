@@ -178,8 +178,7 @@ class _WarningsMonitor:
             self._warned[key] = True
 
     def clear(self) -> None:
-        with self._lock:
-            self._warned.clear()
+        pass
 
 
 _warnings_monitor = _WarningsMonitor()

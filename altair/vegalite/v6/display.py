@@ -54,80 +54,34 @@ here = str(Path(__file__).parent)
 
 
 def mimetype_renderer(spec: dict, **metadata) -> DefaultRendererReturnType:
-    return default_renderer_base(spec, VEGALITE_MIME_TYPE, DEFAULT_DISPLAY, **metadata)
+    pass
 
 
 def json_renderer(spec: dict, **metadata) -> DefaultRendererReturnType:
-    return json_renderer_base(spec, DEFAULT_DISPLAY, **metadata)
+    pass
 
 
 def png_renderer(spec: dict, **metadata) -> dict[str, bytes]:
     # To get proper return value type, would need to write complex
     # overload signatures for spec_to_mimebundle based on `format`
-    return spec_to_mimebundle(  # type: ignore[return-value]
-        spec,
-        format="png",
-        mode="vega-lite",
-        vega_version=VEGA_VERSION,
-        vegaembed_version=VEGAEMBED_VERSION,
-        vegalite_version=VEGALITE_VERSION,
-        **metadata,
-    )
+    pass
 
 
 def svg_renderer(spec: dict, **metadata) -> dict[str, str]:
     # To get proper return value type, would need to write complex
     # overload signatures for spec_to_mimebundle based on `format`
-    return spec_to_mimebundle(
-        spec,
-        format="svg",
-        mode="vega-lite",
-        vega_version=VEGA_VERSION,
-        vegaembed_version=VEGAEMBED_VERSION,
-        vegalite_version=VEGALITE_VERSION,
-        **metadata,
-    )
+    pass
 
 
 def jupyter_renderer(spec: dict, **metadata):
     """Render chart using the JupyterChart Jupyter Widget."""
-    from altair import Chart, JupyterChart
-
-    # Configure offline mode
-    offline = metadata.get("offline", False)
-
-    # mypy doesn't see the enable_offline class method for some reason
-    JupyterChart.enable_offline(offline=offline)  # type: ignore[attr-defined]
-
-    # propagate embed options
-    embed_options = metadata.get("embed_options")
-
-    # Need to ignore attr-defined mypy rule because mypy doesn't see _repr_mimebundle_
-    # conditionally defined in AnyWidget
-    return JupyterChart(
-        chart=Chart.from_dict(spec), embed_options=embed_options
-    )._repr_mimebundle_()  # type: ignore[attr-defined]
+    pass
 
 
 def browser_renderer(
     spec: dict, offline=False, using=None, port=0, **metadata
 ) -> dict[str, str]:
-    from altair.utils._show import open_html_in_browser
-
-    if offline:
-        metadata["template"] = "inline"
-    mimebundle = spec_to_mimebundle(
-        spec,
-        format="html",
-        mode="vega-lite",
-        vega_version=VEGA_VERSION,
-        vegaembed_version=VEGAEMBED_VERSION,
-        vegalite_version=VEGALITE_VERSION,
-        **metadata,
-    )
-    html = mimebundle["text/html"]
-    open_html_in_browser(html, using=using, port=port)
-    return {}
+    pass
 
 
 html_renderer = HTMLRenderer(
@@ -186,6 +140,4 @@ def vegalite(spec: dict, validate: bool = True) -> None:
     validate: bool
         Should the spec be validated against the VegaLite 6 schema?
     """
-    from IPython.display import display
-
-    display(VegaLite(spec, validate=validate))
+    pass

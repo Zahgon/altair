@@ -81,13 +81,11 @@ jsonschema_version_str = importlib_version("jsonschema")
 
 
 def enable_debug_mode() -> None:
-    global DEBUG_MODE
-    DEBUG_MODE = True
+    pass
 
 
 def disable_debug_mode() -> None:
-    global DEBUG_MODE
-    DEBUG_MODE = False
+    pass
 
 
 @contextlib.contextmanager
@@ -425,17 +423,7 @@ def _deduplicate_enum_errors(errors: ValidationErrorList) -> ValidationErrorList
     other one ["A", "B", "C"] then the first one is removed and the final
     `enum` list only contains the error with ["A", "B", "C"].
     """
-    if len(errors) > 1:
-        # Values (and therefore `validator_value`) of an enum are always arrays,
-        # see https://json-schema.org/understanding-json-schema/reference/generic.html#enumerated-values
-        # which is why we can use join below
-        value_strings = [",".join(err.validator_value) for err in errors]  # type: ignore
-        longest_enums: ValidationErrorList = []
-        for value_str, err in zip(value_strings, errors, strict=False):
-            if not _contained_at_start_of_one_of_other_values(value_str, value_strings):
-                longest_enums.append(err)
-        errors = longest_enums
-    return errors
+    pass
 
 
 def _deduplicate_additional_properties_errors(
@@ -452,20 +440,7 @@ def _deduplicate_additional_properties_errors(
     - "Additional properties are not allowed ('field', 'unknown' were unexpected)"
     - "Additional properties are not allowed ('field', 'type', 'unknown' were unexpected)".
     """
-    if len(errors) > 1:
-        # Test if all parent errors are the same anyOf error and only do
-        # the prioritization in these cases. Can't think of a chart spec where this
-        # would not be the case but still allow for it below to not break anything.
-        parent = errors[0].parent
-        if (
-            parent is not None
-            and parent.validator == "anyOf"
-            # Use [1:] as don't have to check for first error as it was used
-            # above to define `parent`
-            and all(err.parent is parent for err in errors[1:])
-        ):
-            errors = [min(errors, key=lambda x: len(x.message))]
-    return errors
+    pass
 
 
 def _deduplicate_by_message(errors: ValidationErrorList) -> ValidationErrorList:
@@ -583,27 +558,15 @@ def _resolve_references(
 
 def _validator_values(errors: Iterable[ValidationError], /) -> Iterator[str]:
     """Unwrap each error's ``.validator_value``, convince ``mypy`` it stores a string."""
-    for err in errors:
-        yield cast("str", err.validator_value)
+    pass
 
 
 def _iter_channels(tp: type[Any], spec: Mapping[str, Any], /) -> Iterator[type[Any]]:
-    from altair import vegalite
-
-    for channel_type in ("datum", "value"):
-        if channel_type in spec:
-            name = f"{tp.__name__}{channel_type.capitalize()}"
-            if narrower := getattr(vegalite, name, None):
-                yield narrower
+    pass
 
 
 def _is_channel(obj: Any) -> TypeIs[dict[str, Any]]:
-    props = {"datum", "value"}
-    return (
-        _is_dict(obj)
-        and all(isinstance(k, str) for k in obj)
-        and not (props.isdisjoint(obj))
-    )
+    pass
 
 
 def _maybe_channel(tp: type[Any], spec: Any, /) -> type[Any]:
@@ -620,7 +583,7 @@ def _maybe_channel(tp: type[Any], spec: Any, /) -> type[Any]:
     .. _more specific:
         https://github.com/vega/altair/issues/2913#issuecomment-2571762700
     """
-    return next(_iter_channels(tp, spec), tp) if _is_channel(spec) else tp
+    pass
 
 
 class SchemaValidationError(jsonschema.ValidationError):
@@ -667,12 +630,7 @@ class SchemaValidationError(jsonschema.ValidationError):
 
     def _get_message(self) -> str:
         def indent_second_line_onwards(message: str, indent: int = 4) -> str:
-            modified_lines: list[str] = []
-            for idx, line in enumerate(message.split("\n")):
-                if idx > 0 and len(line) > 0:
-                    line = " " * indent + line
-                modified_lines.append(line)
-            return "\n".join(modified_lines)
+            pass
 
         error_messages: list[str] = []
         # Only show a maximum of 3 errors as else the final message returned by this
@@ -694,38 +652,14 @@ class SchemaValidationError(jsonschema.ValidationError):
         self,
         errors: ValidationErrorList,
     ) -> str:
-        if errors[0].validator == "additionalProperties":
-            # During development, we only found cases where an additionalProperties
-            # error was raised if that was the only error for the offending instance
-            # as identifiable by the json path. Therefore, we just check here the first
-            # error. However, other constellations might exist in which case
-            # this should be adapted so that other error messages are shown as well.
-            message = self._get_additional_properties_error_message(errors[0])
-        else:
-            message = self._get_default_error_message(errors=errors)
-
-        return message.strip()
+        pass
 
     def _get_additional_properties_error_message(
         self,
         error: jsonschema.exceptions.ValidationError,
     ) -> str:
         """Output all existing parameters when an unknown parameter is specified."""
-        altair_cls = self._get_altair_class_for_error(error)
-        param_dict_keys = inspect.signature(altair_cls).parameters.keys()
-        param_names_table = self._format_params_as_table(param_dict_keys)
-
-        # Error messages for these errors look like this:
-        # "Additional properties are not allowed ('unknown' was unexpected)"
-        # Line below extracts "unknown" from this string
-        parameter_name = error.message.split("('")[-1].split("'")[0]
-        message = f"""\
-`{altair_cls.__name__}` has no parameter named '{parameter_name}'
-
-Existing parameter names are:
-{param_names_table}
-See the help for `{altair_cls.__name__}` to read the full description of these parameters"""
-        return message
+        pass
 
     def _get_altair_class_for_error(
         self, error: jsonschema.exceptions.ValidationError
@@ -738,73 +672,12 @@ See the help for `{altair_cls.__name__}` to read the full description of these p
         If we did not find a suitable class based on traversing the path so we fall
         back on the class of the top-level object which created the SchemaValidationError
         """
-        from altair import vegalite
-
-        for prop_name in reversed(error.absolute_path):
-            # Check if str as e.g. first item can be a 0
-            if isinstance(prop_name, str):
-                candidate = prop_name[0].upper() + prop_name[1:]
-                if tp := getattr(vegalite, candidate, None):
-                    return _maybe_channel(tp, self.instance)
-        return type(self.obj)
+        pass
 
     @staticmethod
     def _format_params_as_table(param_dict_keys: Iterable[str]) -> str:
         """Format param names into a table so that they are easier to read."""
-        param_names: tuple[str, ...]
-        name_lengths: tuple[int, ...]
-        param_names, name_lengths = zip(
-            *[
-                (name, len(name))
-                for name in param_dict_keys
-                if name not in {"kwds", "self"}
-            ],
-            strict=False,
-        )
-        # Worst case scenario with the same longest param name in the same
-        # row for all columns
-        max_name_length = max(name_lengths)
-        max_column_width = 80
-        # Output a square table if not too big (since it is easier to read)
-        num_param_names = len(param_names)
-        square_columns = ceil(num_param_names**0.5)
-        columns = min(max_column_width // max_name_length, square_columns)
-
-        # Compute roughly equal column heights to evenly divide the param names
-        def split_into_equal_parts(n: int, p: int) -> list[int]:
-            return [n // p + 1] * (n % p) + [n // p] * (p - n % p)
-
-        column_heights = split_into_equal_parts(num_param_names, columns)
-
-        # Section the param names into columns and compute their widths
-        param_names_columns: list[tuple[str, ...]] = []
-        column_max_widths: list[int] = []
-        last_end_idx: int = 0
-        for ch in column_heights:
-            param_names_columns.append(param_names[last_end_idx : last_end_idx + ch])
-            column_max_widths.append(
-                max(len(param_name) for param_name in param_names_columns[-1])
-            )
-            last_end_idx = ch + last_end_idx
-
-        # Transpose the param name columns into rows to facilitate looping
-        param_names_rows: list[tuple[str, ...]] = []
-        for li in zip_longest(*param_names_columns, fillvalue=""):
-            param_names_rows.append(li)
-        # Build the table as a string by iterating over and formatting the rows
-        param_names_table: str = ""
-        for param_names_row in param_names_rows:
-            for num, param_name in enumerate(param_names_row):
-                # Set column width based on the longest param in the column
-                max_name_length_column = column_max_widths[num]
-                column_pad = 3
-                param_names_table += "{:<{}}".format(
-                    param_name, max_name_length_column + column_pad
-                )
-                # Insert newlines and spacing after the last element in each row
-                if num == (len(param_names_row) - 1):
-                    param_names_table += "\n"
-        return param_names_table
+        pass
 
     def _format_type_reprs(self, errors: Iterable[ValidationError], /) -> str:
         """
@@ -819,60 +692,13 @@ See the help for `{altair_cls.__name__}` to read the full description of these p
         .. _tools.schemapi.utils.SchemaInfo.to_type_repr:
             https://github.com/vega/altair/blob/48e976ef9388ce08a2e871a0f67ed012b914597a/tools/schemapi/utils.py#L449-L543
         """
-        to_py_types = (
-            self._JS_TO_PY.get(val, val) for val in _validator_values(errors)
-        )
-        it = sorted(to_py_types, key=str.lower)
-        it = sorted(it, key=len)
-        it = sorted(it, key=partial(operator.eq, "None"))
-        return f"of type `{' | '.join(it)}`"
+        pass
 
     def _get_default_error_message(
         self,
         errors: ValidationErrorList,
     ) -> str:
-        bullet_points: list[str] = []
-        errors_by_validator = _group_errors_by_validator(errors)
-        if errs_enum := errors_by_validator.get("enum", None):
-            bullet_points.extend(
-                f"one of {val}" for val in _validator_values(errs_enum)
-            )
-        if errs_type := errors_by_validator.get("type", None):
-            bullet_points.append(self._format_type_reprs(errs_type))
-
-        # It should not matter which error is specifically used as they are all
-        # about the same offending instance (i.e. invalid value), so we can just
-        # take the first one
-        error = errors[0]
-        # Add a summary line when parameters are passed an invalid value
-        # For example: "'asdf' is an invalid value for `stack`
-        message = f"'{error.instance}' is an invalid value"
-        if error.absolute_path:
-            message += f" for `{error.absolute_path[-1]}`"
-
-        # Add bullet points
-        if len(bullet_points) == 0:
-            message += ".\n\n"
-        elif len(bullet_points) == 1:
-            message += f". Valid values are {bullet_points[0]}.\n\n"
-        else:
-            # We don't use .capitalize below to make the first letter uppercase
-            # as that makes the rest of the message lowercase
-            bullet_points = [point[0].upper() + point[1:] for point in bullet_points]
-            message += ". Valid values are:\n\n"
-            message += "\n".join([f"- {point}" for point in bullet_points])
-            message += "\n\n"
-
-        # Add unformatted messages of any remaining errors which were not
-        # considered so far. This is not expected to be used but more exists
-        # as a fallback for cases which were not known during development.
-        it = (
-            "\n".join(e.message for e in errors)
-            for validator, errors in errors_by_validator.items()
-            if validator not in {"enum", "type"}
-        )
-        message += "".join(it)
-        return message
+        pass
 
 
 _JSON_VT_co = TypeVar(
@@ -1332,8 +1158,7 @@ class SchemaBase:
         chart : Chart object
             The altair Chart object built from the specification.
         """
-        dct: dict[str, Any] = json.loads(json_string, **kwargs)
-        return cls.from_dict(dct, validate=validate)  # type: ignore[return-value]
+        pass
 
     @classmethod
     def validate(
@@ -1463,7 +1288,7 @@ def _is_iterable(
 
 
 def _passthrough(*args: Any, **kwds: Any) -> Any | dict[str, Any]:
-    return args[0] if args else kwds
+    pass
 
 
 class _FromDict:

@@ -96,11 +96,11 @@ class DataTransformerRegistry(PluginRegistry[DataTransformerType, R]):
 
     @property
     def consolidate_datasets(self) -> bool:
-        return self._global_settings["consolidate_datasets"]
+        pass
 
     @consolidate_datasets.setter
     def consolidate_datasets(self, value: bool) -> None:
-        self._global_settings["consolidate_datasets"] = value
+        pass
 
 
 # ==============================================================================

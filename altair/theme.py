@@ -236,10 +236,7 @@ def register(
     # HACK: See for `LiteralString` requirement in `name`
     # https://github.com/vega/altair/pull/3526#discussion_r1743350127
     def decorate(func: Plugin[ThemeConfig], /) -> Plugin[ThemeConfig]:
-        _register(name, func)
-        if enable:
-            _themes.enable(name)
-        return func
+        pass
 
     return decorate
 
@@ -258,16 +255,7 @@ def unregister(name: LiteralString) -> Plugin[ThemeConfig]:
     TypeError
         When ``name`` has not been registered.
     """
-    plugin = _register(name, None)
-    if plugin is None:
-        msg = (
-            f"Found no theme named {name!r} in registry.\n"
-            f"Registered themes:\n"
-            f"{names()!r}"
-        )
-        raise TypeError(msg)
-    else:
-        return plugin
+    pass
 
 
 enable = _themes.enable

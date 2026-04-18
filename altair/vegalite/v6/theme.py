@@ -65,7 +65,7 @@ class ThemeRegistry(PluginRegistry[Plugin[ThemeConfig], ThemeConfig]):
 
     def names(self) -> list[str]:
         """Return the names of the registered and entry points themes."""
-        return super().names()
+        pass
 
     @deprecated_static_only(
         "Deprecated since `altair=5.5.0`. Use @altair.theme.register instead.",

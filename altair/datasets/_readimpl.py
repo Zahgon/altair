@@ -163,7 +163,7 @@ class BaseImpl(Generic[R]):
 
     @property
     def _inferred_package(self) -> str:
-        return _root_package_name(_unwrap_partial(self.fn), "UNKNOWN")
+        pass
 
     def __repr__(self) -> str:
         tp_name = f"{type(self).__name__}[{self._inferred_package}?]"
@@ -181,23 +181,15 @@ class BaseImpl(Generic[R]):
 
     @property
     def _relevant_columns(self) -> Iterator[str]:
-        name = itemgetter(0)
-        yield from (name(obj) for obj in chain(self.include, self.exclude))
+        pass
 
     @property
     def _include_expr(self) -> nw.Expr:
-        return (
-            self.include.to_expr() & ~self.exclude.to_expr()
-            if self.exclude
-            else self.include.to_expr()
-        )
+        pass
 
     @property
     def _exclude_expr(self) -> nw.Expr:
-        if self.exclude:
-            return self.include.to_expr() & self.exclude.to_expr()
-        msg = f"Unable to generate an exclude expression without setting exclude\n\n{self!r}"
-        raise TypeError(msg)
+        pass
 
 
 def read(
@@ -224,7 +216,7 @@ def into_scan(impl: Read[IntoDataFrameT], /) -> Scan[Any]:
     def scan_fn(fn: Callable[..., IntoDataFrameT], /) -> Callable[..., Any]:
         @wraps(_unwrap_partial(fn))
         def wrapper(*args: Any, **kwds: Any) -> nw.LazyFrame[Any]:
-            return nw.from_native(fn(*args, **kwds)).lazy()
+            pass
 
         return wrapper
 
@@ -255,15 +247,7 @@ def is_available(
 
 def _root_package_name(obj: Any, default: str, /) -> str:
     # NOTE: Defers importing `inspect`, if we can get the module name
-    if hasattr(obj, "__module__"):
-        return obj.__module__.split(".")[0]
-    else:
-        from inspect import getmodule
-
-        module = getmodule(obj)
-    if module and (pkg := module.__package__):
-        return pkg.split(".")[0]
-    return default
+    pass
 
 
 def _unwrap_partial(fn: Any, /) -> Any:
@@ -485,30 +469,8 @@ def _pl_read_json_roundtrip_to_arrow(ns: ModuleType, /) -> Callable[..., pa.Tabl
 
 
 def _stdlib_read_json(source: Path | Any, /) -> Any:
-    import json
-
-    if not isinstance(source, Path):
-        return json.load(source)
-    else:
-        with Path(source).open(encoding="utf-8") as f:
-            return json.load(f)
+    pass
 
 
 def _stdlib_read_json_to_arrow(source: Path | Any, /, **kwds: Any) -> pa.Table:
-    import pyarrow as pa
-
-    rows: list[dict[str, Any]] = _stdlib_read_json(source)
-    try:
-        return pa.Table.from_pylist(rows, **kwds)
-    except TypeError:
-        import csv
-        import io
-
-        from pyarrow import csv as pa_csv
-
-        with io.StringIO() as f:
-            writer = csv.DictWriter(f, rows[0].keys(), dialect=csv.unix_dialect)
-            writer.writeheader()
-            writer.writerows(rows)
-            with io.BytesIO(f.getvalue().encode()) as f2:
-                return pa_csv.read_csv(f2)
+    pass

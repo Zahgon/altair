@@ -183,23 +183,11 @@ class Reader(Generic[IntoDataFrameT, IntoLazyFrameT]):
 
     @property
     def cache(self) -> DatasetCache:
-        return DatasetCache(self)
+        pass
 
     def _handle_pyarrow_date_error(self, e: Exception, name: str) -> None:
         """Handle PyArrow date parsing errors with informative error messages, see https://github.com/apache/arrow/issues/41488."""
-        if "CSV conversion error to date" in str(e) and "pyarrow" in str(
-            type(e).__module__
-        ):
-            message = (
-                f"PyArrow cannot parse date format in dataset '{name}'. "
-                f"This is a known limitation of PyArrow's CSV reader for non-ISO date formats.\n\n"
-                f"Alternatives:\n"
-                f"1. Use a different backend: data.{name}(engine='pandas') or data.{name}(engine='polars')\n"
-                f"2. Convert dates manually after loading as strings\n\n"
-                f"Original error: {e}"
-            )
-            raise AltairDatasetsError(message) from e
-        raise e
+        pass
 
     def dataset(
         self,
@@ -208,38 +196,12 @@ class Reader(Generic[IntoDataFrameT, IntoLazyFrameT]):
         /,
         **kwds: Any,
     ) -> IntoDataFrameT:
-        frame = self._query(name, suffix)
-        meta = next(_iter_metadata(frame))
-        fn = self.read_fn(meta)
-        fn_kwds = self._merge_kwds(meta, kwds)
-        if self.cache.is_active():
-            fp = self.cache._maybe_download(meta)
-            try:
-                return fn(fp, **fn_kwds)
-            except Exception as e:
-                self._handle_pyarrow_date_error(e, name)
-                raise
-        else:
-            with self._opener.open(meta["url"]) as f:
-                try:
-                    return fn(f, **fn_kwds)
-                except Exception as e:
-                    self._handle_pyarrow_date_error(e, name)
-                    raise
+        pass
 
     def url(
         self, name: Dataset | LiteralString, suffix: Extension | None = None, /
     ) -> str:
-        frame = self._query(name, suffix)
-        meta = next(_iter_metadata(frame))
-        if is_parquet(meta.items()) and not is_available("vegafusion"):
-            raise AltairDatasetsError.from_url(meta)
-        url = meta["url"]
-        if isinstance(url, str):
-            return url
-        else:
-            msg = f"Expected 'str' but got {type(url).__name__!r}\nfrom {url!r}."
-            raise TypeError(msg)
+        pass
 
     # TODO: (Multiple)
     # - Settle on a better name
@@ -262,14 +224,7 @@ class Reader(Generic[IntoDataFrameT, IntoLazyFrameT]):
         .. _licenses:
             https://datapackage.org/standard/data-package/#licenses
         """
-        import webbrowser
-
-        from altair.utils import VERSIONS
-
-        ref = self._query(name).get_column("file_name").item(0).replace(".", "")
-        tag = VERSIONS["vega-datasets"]
-        url = f"https://github.com/vega/vega-datasets/blob/v{tag}/datapackage.md#{ref}"
-        webbrowser.open(url)
+        pass
 
     @overload
     def profile(self, *, show: Literal[False] = ...) -> _SupportProfile: ...
@@ -286,21 +241,7 @@ class Reader(Generic[IntoDataFrameT, IntoLazyFrameT]):
         show
             Print a densely formatted repr *instead of* returning a mapping.
         """
-        relevant_columns = set(
-            chain.from_iterable(impl._relevant_columns for impl in self._read)
-        )
-        frame = self._scan_metadata().select("dataset_name", *relevant_columns)
-        inc_expr = nw.any_horizontal(impl._include_expr for impl in self._read)
-        result: _SupportProfile = {
-            "unsupported": _dataset_names(frame, ~inc_expr),
-            "supported": _dataset_names(frame, inc_expr),
-        }
-        if show:
-            import pprint
-
-            pprint.pprint(result, compact=True, sort_dicts=False)
-            return None
-        return result
+        pass
 
     def _query(
         self, name: Dataset | LiteralString, suffix: Extension | None = None, /
@@ -313,13 +254,7 @@ class Reader(Generic[IntoDataFrameT, IntoLazyFrameT]):
         .. _vega-datasets/datapackage.json:
             https://github.com/vega/vega-datasets/blob/main/datapackage.json
         """
-        constraints = _into_constraints(name, suffix)
-        frame = self._scan_metadata(**constraints).collect()
-        if not frame.is_empty():
-            return frame
-        else:
-            msg = f"Found no results for:\n    {constraints!r}"
-            raise ValueError(msg)
+        pass
 
     def _merge_kwds(self, meta: Metadata, kwds: dict[str, Any], /) -> Mapping[str, Any]:
         """
@@ -327,23 +262,16 @@ class Reader(Generic[IntoDataFrameT, IntoLazyFrameT]):
 
         .. important:: User-provided arguments have a higher precedence.
         """
-        if self._schema_cache.is_active() and (
-            schema := self._schema_cache.schema_kwds(meta)
-        ):
-            kwds = schema | kwds if kwds else schema
-        return kwds
+        pass
 
     @property
     def _metadata_frame(self) -> nw.LazyFrame[IntoLazyFrameT]:
-        fp = self._metadata_path
-        return nw.from_native(self.scan_fn(fp)(fp)).lazy()
+        pass
 
     def _scan_metadata(
         self, *predicates: OneOrSeq[IntoExpr], **constraints: Unpack[Metadata]
     ) -> nw.LazyFrame[IntoLazyFrameT]:
-        if predicates or constraints:
-            return self._metadata_frame.filter(*predicates, **constraints)
-        return self._metadata_frame
+        pass
 
     def _solve(
         self, meta: Metadata, impls: Sequence[BaseImpl[R]], /
@@ -368,13 +296,7 @@ def _dataset_names(
     frame: nw.LazyFrame, *predicates: OneOrSeq[IntoExpr]
 ) -> Sequence[Dataset]:
     # NOTE: helper function for `Reader.profile`
-    return (
-        frame.filter(*predicates)
-        .select("dataset_name")
-        .collect()
-        .get_column("dataset_name")
-        .to_list()
-    )
+    pass
 
 
 class _NoParquetReader(Reader[IntoDataFrameT]):
@@ -383,15 +305,11 @@ class _NoParquetReader(Reader[IntoDataFrameT]):
 
     @property
     def csv_cache(self) -> CsvCache:
-        if not hasattr(self, "_csv_cache"):
-            self._csv_cache = CsvCache()
-        return self._csv_cache
+        pass
 
     @property
     def _metadata_frame(self) -> nw.LazyFrame[Any]:
-        data = self.csv_cache.rotated
-        impl = self._implementation
-        return nw.maybe_convert_dtypes(nw.from_dict(data, backend=impl)).lazy()
+        pass
 
 
 @overload
@@ -448,10 +366,7 @@ def infer_backend(
     .. _fastparquet:
         https://github.com/dask/fastparquet
     """
-    it = (_from_backend(name) for name in priority if is_available(_requirements(name)))
-    if reader := next(it, None):
-        return reader
-    raise AltairDatasetsError.from_priority(priority)
+    pass
 
 
 @overload
@@ -497,24 +412,7 @@ def _into_constraints(
     name: Dataset | LiteralString, suffix: Extension | None, /
 ) -> Metadata:
     """Transform args into a mapping to column names."""
-    m: Metadata = {}
-    if "." in name:
-        m["file_name"] = name
-    elif suffix is None:
-        m["dataset_name"] = name
-    elif suffix.startswith("."):
-        m = {"dataset_name": name, "suffix": suffix}
-    else:
-        from typing import get_args
-
-        from altair.datasets._typing import Extension
-
-        msg = (
-            f"Expected 'suffix' to be one of {get_args(Extension)!r},\n"
-            f"but got: {suffix!r}"
-        )
-        raise TypeError(msg)
-    return m
+    pass
 
 
 def _is_eager_allowed(impl: nw.Implementation, /) -> TypeIs[_EagerAllowedImpl]:

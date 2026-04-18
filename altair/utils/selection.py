@@ -43,12 +43,7 @@ class IndexSelection:
         -------
         IndexSelection
         """
-        if signal is None:
-            indices = []
-        else:
-            points = signal.get("vlPoint", {}).get("or", [])
-            indices = [p["_vgsid_"] - 1 for p in points]
-        return IndexSelection(name=name, value=indices, store=store)
+        pass
 
 
 @dataclass(frozen=True, eq=True)
@@ -86,8 +81,7 @@ class PointSelection:
         -------
         PointSelection
         """
-        points = [] if signal is None else signal.get("vlPoint", {}).get("or", [])
-        return PointSelection(name=name, value=points, store=store)
+        pass
 
 
 @dataclass(frozen=True, eq=True)
@@ -125,6 +119,4 @@ class IntervalSelection:
         -------
         PointSelection
         """
-        if signal is None:
-            signal = {}
-        return IntervalSelection(name=name, value=signal, store=store)
+        pass
